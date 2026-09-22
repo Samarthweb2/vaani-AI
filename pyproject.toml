@@ -16,6 +16,8 @@ dependencies = [
     "datasets>=2.19.0",
     "trl>=0.8.0",
     "accelerate>=0.28.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
 ]
 
 [project.optional-dependencies]

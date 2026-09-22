@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaani AI — Autonomous Social Media AI Agent</title>
+  <meta name="description" content="Vaani AI: Mention-based autonomous social media AI agent powered by fine-tuned Hugging Face models.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-avatar">V</div>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <h1 class="brand-title">Vaani AI</h1>
+            <span class="verified-badge" title="Verified AI Agent">✓</span>
+            <span class="handle-tag">@vaaniai</span>
+          </div>
+          <p class="brand-subtitle">Autonomous Mention Agent · Hugging Face + LoRA</p>
+        </div>
+      </div>
+
+      <div class="header-status-strip">
+        <div class="status-chip active">
+          <span class="status-dot pulsing"></span>
+          <span class="chip-label">Engine:</span>
+          <span class="chip-val" id="chip-model">Qwen2.5-0.5B</span>
+        </div>
+        <div class="status-chip">
+          <span class="status-dot green"></span>
+          <span class="chip-label">LoRA Adapter:</span>
+          <span class="chip-val" id="chip-lora">checkpoints/vaani-lora</span>
+        </div>
+        <div class="status-chip">
+          <span class="status-dot blue"></span>
+          <span class="chip-label">Dataset:</span>
+          <span class="chip-val" id="chip-dataset">Dolly 15k (14,835 samples)</span>
+        </div>
+      </div>
+
+      <div class="header-nav">
+        <button class="nav-tab active" data-tab="timeline">Live Timeline</button>
+        <button class="nav-tab" data-tab="dataset">Dataset Inspector</button>
+        <button class="nav-tab" data-tab="architecture">Architecture</button>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="main-layout">
+      <!-- Left Column: Primary Timeline & Composer -->
+      <section class="timeline-column" id="tab-timeline">
+        <!-- Tweet Composer Card -->
+        <div class="composer-card">
+          <div class="composer-header">
+            <div class="author-selector-wrap">
+              <span class="author-avatar" id="current-author-avatar">J</span>
+              <div class="author-details">
+                <span class="author-label">Posting as:</span>
+                <select id="author-select" class="author-select">
+                  <option value="hackathon_judge">@hackathon_judge</option>
+                  <option value="samarthsharma44">@samarthsharma44</option>
+                  <option value="tech_reviewer">@tech_reviewer</option>
+                  <option value="student_dev">@student_dev</option>
+                </select>
+              </div>
+            </div>
+            <div class="composer-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Tweet</div>
+          </div>
+
+          <div class="composer-body">
+            <textarea
+              id="tweet-input"
+              class="tweet-textarea"
+              rows="3"
+              placeholder="Tag @vaaniai with your query... (e.g., @vaaniai what is fine-tuning in AI?)"
+            >@vaaniai </textarea>
+          </div>
+
+          <!-- Quick Suggestion Chips -->
+          <div class="prompt-chips">
+            <span class="chips-title">Quick prompts:</span>
+            <button class="chip-btn" data-prompt="@vaaniai explain what is an API in 2 sentences">API in 2 sentences</button>
+            <button class="chip-btn" data-prompt="@vaaniai why do we use LoRA instead of full fine-tuning?">Why LoRA?</button>
+            <button class="chip-btn" data-prompt="@vaaniai how does Twitter API v2 handle rate limits?">Twitter API Limits</button>
+            <button class="chip-btn" data-prompt="@vaaniai how do neural networks learn through backpropagation?">Neural Networks</button>
+          </div>
+
+          <div class="composer-footer">
+            <div class="char-counter-wrap">
+              <svg class="progress-ring" width="28" height="28">
+                <circle class="progress-ring__circle-bg" stroke="#1f293d" stroke-width="3" fill="transparent" r="11" cx="14" cy="14"/>
+                <circle class="progress-ring__circle" id="char-progress" stroke="#1d9bf0" stroke-width="3" fill="transparent" r="11" cx="14" cy="14"/>
+              </svg>
+              <span class="char-count" id="char-count">8 / 280</span>
+            </div>
+            <button class="tweet-submit-btn" id="submit-tweet-btn">
+              <span class="btn-text">Tweet @vaaniai</span>
+              <span class="btn-spinner" id="btn-spinner"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-stream-header">
+          <h2 class="timeline-title">Live Mention Feed & Thread Timeline</h2>
+          <button class="clear-timeline-btn" id="clear-feed-btn">Clear View</button>
+        </div>
+
+        <div class="timeline-feed" id="timeline-feed">
+          <!-- Dynamic Tweets will be injected here -->
+        </div>
+      </section>
+
+      <!-- Dataset Inspector Tab (Hidden by default) -->
+      <section class="dataset-column" id="tab-dataset" style="display: none;">
+        <div class="dataset-header-card">
+          <div class="dataset-title-group">
+            <h2>Fine-Tuning Dataset Inspector</h2>
+            <p>Every mention processed by Vaani AI is automatically formatted and saved to <code>data/dataset.jsonl</code>.</p>
+          </div>
+          <div class="dataset-counters">
+            <div class="d-count-box">
+              <span class="d-num" id="d-total-count">0</span>
+              <span class="d-label">Captured Interactions</span>
+            </div>
+            <div class="d-count-box">
+              <span class="d-num" id="d-base-count">14,835</span>
+              <span class="d-label">Base Dolly 15k Samples</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataset-records-feed" id="dataset-records">
+          <!-- Dynamic JSONL records -->
+        </div>
+      </section>
+
+      <!-- System Architecture Tab (Hidden by default) -->
+      <section class="architecture-column" id="tab-architecture" style="display: none;">
+        <div class="arch-card">
+          <h2>Vaani AI Architecture Overview</h2>
+          <div class="arch-diagram">
+            <div class="arch-step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h3>Mention Detection</h3>
+                <p>Ingests tag <code>@vaaniai</code> via Twitter API v2 or Web Simulator. Normalizes handles and isolates user intent.</p>
+              </div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h3>SQLite Deduplication</h3>
+                <p>Checks <code>data/vaani.db</code> for processed tweet IDs and cursor pagination to eliminate duplicate replies.</p>
+              </div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h3>Hugging Face + LoRA</h3>
+                <p>Loads <code>Qwen/Qwen2.5-0.5B-Instruct</code> and dynamically merges fine-tuned weights from <code>checkpoints/vaani-lora</code>.</p>
+              </div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h3>Thread Formatter</h3>
+                <p>Enforces 280-char social limit. Slices longer responses into clean numbered threads <code>(1/2)</code>, <code>(2/2)</code>.</p>
+              </div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <h3>Continuous Learning</h3>
+                <p>Appends question-answer pairs to <code>data/dataset.jsonl</code> in instruction-tuning format for automated retraining.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Sidebar: Live Hackathon Telemetry -->
+      <aside class="sidebar-column">
+        <!-- Live System Telemetry Card -->
+        <div class="telemetry-card">
+          <h3 class="sidebar-heading">System Telemetry</h3>
+          
+          <div class="metric-row">
+            <span class="m-label">Active Model</span>
+            <span class="m-val highlight" id="m-model-id">Qwen2.5-0.5B</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">LoRA Status</span>
+            <span class="m-val status-green">Active & Merged</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Hardware Device</span>
+            <span class="m-val">CPU (Quantized/Float32)</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Base Dataset</span>
+            <span class="m-val">Databricks Dolly 15k</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Base Training Size</span>
+            <span class="m-val" id="m-base-size">14,835 (14.0 MB)</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Captured Interactions</span>
+            <span class="m-val badge-blue" id="m-live-samples">14</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">State Database</span>
+            <span class="m-val code-font">data/vaani.db</span>
+          </div>
+        </div>
+
+        <!-- Twitter API Status Card -->
+        <div class="telemetry-card twitter-status-card">
+          <h3 class="sidebar-heading">X (Twitter) Auth Status</h3>
+          <div class="metric-row">
+            <span class="m-label">Authenticated As</span>
+            <span class="m-val highlight">@samarthsharma44</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">OAuth 1.0a Handshake</span>
+            <span class="m-val status-green">Verified (200 OK)</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">API v2 Gateway</span>
+            <span class="m-val status-yellow">Requires Paid Tier (402)</span>
+          </div>
+          <p class="twitter-note">
+            OAuth authentication is verified. Localhost simulator runs the real Hugging Face model and replicates live Twitter thread behavior.
+          </p>
+        </div>
+
+        <!-- Presentation Tips for Judges -->
+        <div class="telemetry-card judges-card">
+          <h3 class="sidebar-heading">Hackathon Demo Highlights</h3>
+          <ul class="judges-list">
+            <li><strong>Zero Ollama:</strong> Runs pure Hugging Face transformers.</li>
+            <li><strong>LoRA Fine-Tuned:</strong> Custom trained weights loaded from <code>checkpoints/vaani-lora</code>.</li>
+            <li><strong>Real Human Dataset:</strong> Databricks Dolly 15k (not dummy toy data).</li>
+            <li><strong>Thread Chunker:</strong> Automatically splits responses exceeding 280 chars into connected tweet threads.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

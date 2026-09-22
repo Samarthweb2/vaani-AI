@@ -19,10 +19,12 @@ def main():
     parser = argparse.ArgumentParser(description="Vaani AI - Social Media Mention Agent")
     parser.add_argument(
         "--mode",
-        choices=["simulate", "live", "test-hf", "stats", "download-data", "train"],
+        choices=["simulate", "live", "test-hf", "stats", "download-data", "train", "ui", "web"],
         default="simulate",
-        help="Execution mode: simulate, live, test-hf, stats, download-data, or train"
+        help="Execution mode: simulate, live, test-hf, stats, download-data, train, or ui"
     )
+    parser.add_argument("--host", type=str, default="127.0.0.1", help="Host for Web UI")
+    parser.add_argument("--port", type=int, default=8000, help="Port for Web UI")
     parser.add_argument("--dataset", type=str, default="dolly", choices=["dolly", "alpaca"], help="Dataset to download")
     parser.add_argument("--max-samples", type=int, default=None, help="Max samples for downloading or training")
     parser.add_argument("--epochs", type=int, default=1, help="Number of training epochs")
@@ -106,6 +108,18 @@ def main():
             max_samples=args.max_samples,
             max_steps=args.max_steps
         )
+
+    elif args.mode in ("ui", "web"):
+        import uvicorn
+        print("=" * 60)
+        print("   Vaani AI - Interactive Localhost Web UI")
+        print("=" * 60)
+        print(f"URL:          http://{args.host}:{args.port}")
+        print(f"Model:        {settings.hf_model_id} (Mode: {settings.hf_mode})")
+        print(f"LoRA Adapter: {settings.hf_lora_path or 'Base Model'}")
+        print("=" * 60)
+        print("Press Ctrl+C to stop the Web UI server.\n")
+        uvicorn.run("vaani.web.app:app", host=args.host, port=args.port, reload=False)
 
 
 if __name__ == "__main__":

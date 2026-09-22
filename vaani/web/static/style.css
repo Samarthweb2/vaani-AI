@@ -1,0 +1,897 @@
+/* ============================================================
+   Vaani AI — Modern Dark Mode Web UI Stylesheet
+   ============================================================ */
+
+:root {
+  --bg-primary: #07090e;
+  --bg-secondary: #0d1117;
+  --bg-card: #131822;
+  --bg-card-hover: #192130;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #1d9bf0;
+  
+  --twitter-blue: #1d9bf0;
+  --twitter-blue-hover: #1a8cd8;
+  --twitter-blue-glow: rgba(29, 155, 240, 0.25);
+  
+  --accent-cyan: #00f2fe;
+  --accent-purple: #7928ca;
+  --accent-green: #00ba7c;
+  --accent-yellow: #ffd400;
+  --accent-red: #f4212e;
+  
+  --text-primary: #f0f3f6;
+  --text-secondary: #8b98a5;
+  --text-muted: #536471;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(29, 155, 240, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Wrapper */
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+
+/* ============================================================
+   Top Header & Navigation
+   ============================================================ */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  color: #000;
+  font-weight: 800;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--twitter-blue);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.handle-tag {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-status-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.status-dot.green {
+  background: var(--accent-green);
+  box-shadow: 0 0 8px rgba(0, 186, 124, 0.6);
+}
+
+.status-dot.blue {
+  background: var(--twitter-blue);
+  box-shadow: 0 0 8px rgba(29, 155, 240, 0.6);
+}
+
+.status-dot.pulsing {
+  background: var(--accent-cyan);
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 242, 254, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+}
+
+.chip-label {
+  color: var(--text-muted);
+}
+
+.chip-val {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab:hover {
+  color: var(--text-primary);
+}
+
+.nav-tab.active {
+  background: var(--twitter-blue);
+  color: #fff;
+  box-shadow: 0 2px 10px var(--twitter-blue-glow);
+}
+
+/* ============================================================
+   Main Layout (2-Column Grid)
+   ============================================================ */
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Timeline Column */
+.timeline-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Composer Card */
+.composer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.composer-card:focus-within {
+  border-color: rgba(29, 155, 240, 0.4);
+  box-shadow: var(--shadow-glow);
+}
+
+.composer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.author-selector-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #38444d;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.author-details {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.author-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.author-select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+}
+
+.composer-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.composer-hint kbd {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.tweet-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 75px;
+}
+
+.tweet-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Prompt Chips */
+.prompt-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chips-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.chip-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-btn:hover {
+  background: rgba(29, 155, 240, 0.12);
+  border-color: rgba(29, 155, 240, 0.4);
+  color: var(--twitter-blue);
+}
+
+.composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.char-counter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.2s ease, stroke 0.2s ease;
+  stroke-dasharray: 69.11;
+  stroke-dashoffset: 69.11;
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.tweet-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--twitter-blue);
+  color: #fff;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tweet-submit-btn:hover:not(:disabled) {
+  background: var(--twitter-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--twitter-blue-glow);
+}
+
+.tweet-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   Timeline Stream & Thread Cards
+   ============================================================ */
+.timeline-stream-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.timeline-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.clear-timeline-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-timeline-btn:hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Thread Item Container */
+.thread-card-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: slideInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Individual Tweet Card */
+.tweet-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px 20px;
+  position: relative;
+}
+
+.tweet-avatar-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-avatar-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2f3336;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.user-avatar-circle.vaani-avatar {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  color: #000;
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+/* The vertical thread line connecting tweets */
+.thread-line-connector {
+  position: absolute;
+  top: 42px;
+  bottom: -20px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  z-index: 1;
+}
+
+.tweet-card:last-child .thread-line-connector {
+  display: none;
+}
+
+.tweet-content-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tweet-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tweet-display-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.tweet-username {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.tweet-dot-sep {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.tweet-time {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.tweet-chunk-pill {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  background: rgba(29, 155, 240, 0.1);
+  color: var(--twitter-blue);
+  border: 1px solid rgba(29, 155, 240, 0.3);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.tweet-body {
+  font-size: 15px;
+  color: #e7e9ea;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.tweet-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 420px;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.action-btn:hover {
+  color: var(--twitter-blue);
+  background: rgba(29, 155, 240, 0.08);
+}
+
+.action-btn.copy-btn:hover {
+  color: var(--accent-green);
+  background: rgba(0, 186, 124, 0.08);
+}
+
+/* ============================================================
+   Right Sidebar Telemetry
+   ============================================================ */
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.telemetry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-heading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.m-label {
+  color: var(--text-secondary);
+}
+
+.m-val {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.m-val.highlight {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+
+.m-val.status-green {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.m-val.status-yellow {
+  color: var(--accent-yellow);
+  font-size: 12px;
+}
+
+.m-val.badge-blue {
+  background: rgba(29, 155, 240, 0.15);
+  color: var(--twitter-blue);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+}
+
+.m-val.code-font {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.twitter-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-top: 12px;
+}
+
+.judges-card {
+  background: linear-gradient(180deg, rgba(29, 155, 240, 0.04) 0%, rgba(0, 242, 254, 0.02) 100%), var(--bg-card);
+  border-color: rgba(29, 155, 240, 0.2);
+}
+
+.judges-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.judges-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  position: relative;
+  padding-left: 18px;
+}
+
+.judges-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--accent-cyan);
+}
+
+.judges-list strong {
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   Dataset Inspector Tab
+   ============================================================ */
+.dataset-header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.dataset-title-group h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.dataset-title-group p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.dataset-counters {
+  display: flex;
+  gap: 16px;
+}
+
+.d-count-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  text-align: center;
+}
+
+.d-num {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+
+.d-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.dataset-records-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.json-record-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #a8b3cf;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-x: auto;
+}
+
+/* ============================================================
+   Architecture Tab
+   ============================================================ */
+.arch-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+
+.arch-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.arch-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.arch-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--twitter-blue);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.arch-arrow {
+  text-align: center;
+  color: var(--twitter-blue);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-nav {
+    width: 100%;
+    justify-content: center;
+  }
+}

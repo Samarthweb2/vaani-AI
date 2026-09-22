@@ -112,4 +112,29 @@ class HuggingFaceLocalProvider(BaseLLMProvider):
         generated_tokens = outputs[0][input_length:]
         response = self._tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
+        # Guard against generic refusal phrases
+        refusal_markers = [
+            "i'm sorry, but i can't assist",
+            "i cannot assist with that",
+            "i am unable to help",
+            "as an ai, i cannot",
+        ]
+        if any(marker in response.lower() for marker in refusal_markers):
+            logger.info("Refusal detected in model output. Re-generating direct constructive answer...")
+            direct_prompt = f"Topic: {query}\nDirect explanation and answer:"
+            retry_inputs = self._tokenizer(direct_prompt, return_tensors="pt").to(self.device)
+            with torch.no_grad():
+                retry_outputs = self._model.generate(
+                    **retry_inputs,
+                    max_new_tokens=self.max_new_tokens,
+                    do_sample=True,
+                    temperature=0.5,
+                    top_p=0.9,
+                    pad_token_id=self._tokenizer.eos_token_id or self._tokenizer.pad_token_id,
+                )
+            retry_tokens = retry_outputs[0][retry_inputs["input_ids"].shape[1]:]
+            retry_resp = self._tokenizer.decode(retry_tokens, skip_special_tokens=True).strip()
+            if retry_resp:
+                response = retry_resp
+
         return response

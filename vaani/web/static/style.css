@@ -1005,3 +1005,147 @@ body {
     width: 100%;
   }
 }
+
+/* ============================================================
+   REPLY MODAL (Twitter Comment Pop-up)
+   ============================================================ */
+.x-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 50px;
+  animation: fadeInModal 0.2s ease;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.x-modal-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 95%;
+  max-width: 600px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-top-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+.modal-tweet-preview {
+  display: flex;
+  gap: 12px;
+  padding: 16px 16px 0;
+  position: relative;
+}
+
+.modal-avatar-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.modal-thread-line {
+  position: absolute;
+  top: 42px;
+  bottom: -20px;
+  width: 2px;
+  background-color: var(--border-strong);
+}
+
+.modal-tweet-content {
+  flex: 1;
+}
+
+.modal-orig-text {
+  font-size: 15px;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.modal-replying-to {
+  font-size: 14px;
+  color: var(--text-sub);
+  margin-bottom: 8px;
+}
+
+.replying-mention {
+  color: var(--x-blue);
+}
+
+.modal-composer-row {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px 16px;
+}
+
+.modal-composer-content {
+  flex: 1;
+}
+
+.modal-textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 18px;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.4;
+  min-height: 80px;
+}
+
+.modal-composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.char-count-sm {
+  font-size: 13px;
+  color: var(--text-sub);
+  font-family: monospace;
+}

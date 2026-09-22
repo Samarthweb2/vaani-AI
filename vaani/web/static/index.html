@@ -262,6 +262,61 @@
 
   </div>
 
+  <!-- Twitter / X Reply Comment Modal -->
+  <div class="x-modal-backdrop" id="reply-modal" style="display: none;">
+    <div class="x-modal-card">
+      <div class="modal-top-bar">
+        <button class="modal-close-btn" id="modal-close-btn" title="Close">✕</button>
+      </div>
+
+      <!-- Original Tweet Preview in Modal -->
+      <div class="modal-tweet-preview" id="modal-tweet-preview">
+        <div class="modal-avatar-col">
+          <div class="avatar-img avatar-user" id="modal-orig-avatar">J</div>
+          <div class="modal-thread-line"></div>
+        </div>
+        <div class="modal-tweet-content">
+          <div class="tweet-header-row">
+            <span class="t-author-name" id="modal-orig-name">hackathon_judge</span>
+            <span class="t-author-handle" id="modal-orig-handle">@hackathon_judge</span>
+            <span class="t-dot">·</span>
+            <span class="t-time">12m</span>
+          </div>
+          <div class="modal-orig-text" id="modal-orig-text">Original tweet text...</div>
+          <div class="modal-replying-to">
+            Replying to <span class="replying-mention" id="modal-replying-mention">@hackathon_judge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply Composer in Modal -->
+      <div class="modal-composer-row">
+        <div class="modal-avatar-col">
+          <div class="user-avatar samarth-avatar">S</div>
+        </div>
+        <div class="modal-composer-content">
+          <textarea
+            id="modal-reply-input"
+            class="x-textarea modal-textarea"
+            rows="3"
+            placeholder="Post your reply (tag @vaaniai)..."
+          >@vaaniai </textarea>
+          
+          <div class="modal-composer-footer">
+            <div class="composer-icons">
+              <button class="c-icon-btn"><svg viewBox="0 0 24 24" class="c-svg"><path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 8.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/></svg></button>
+              <button class="c-icon-btn"><svg viewBox="0 0 24 24" class="c-svg"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-4 8.5c2.47 0 4.57-1.56 5.4-3.75H6.6c.83 2.19 2.93 3.75 5.4 3.75zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></button>
+            </div>
+            <div class="composer-submit-group">
+              <span class="char-count-sm" id="modal-char-count">8 / 280</span>
+              <button class="post-submit-btn" id="modal-submit-btn">Reply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="/static/app.js"></script>
 </body>
 </html>

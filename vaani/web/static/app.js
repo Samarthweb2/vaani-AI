@@ -270,7 +270,14 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCharRing();
 
     } catch (err) {
-      thinkingRow.innerHTML = `<span style="color: #f4212e; padding: 12px 16px;">Error processing tweet: ${err.message}</span>`;
+      const msg = err.message.includes("fetch")
+        ? "Server connection temporarily interrupted. The model may have been loading into RAM. Please try again!"
+        : `Error processing tweet: ${err.message}`;
+      thinkingRow.innerHTML = `
+        <div style="color: #f4212e; padding: 12px 16px; font-size: 14px;">
+          <span>⚠️ ${escapeHtml(msg)}</span>
+        </div>
+      `;
     } finally {
       postSubmitBtn.disabled = false;
       postSubmitBtn.textContent = "Post";
@@ -539,7 +546,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     } catch (err) {
-      thinkingRow.innerHTML = `<span style="color: #f4212e; padding: 12px 16px;">Error: ${err.message}</span>`;
+      const msg = err.message.includes("fetch")
+        ? "Server connection temporarily interrupted. The model may have been loading into RAM. Please try again!"
+        : `Error: ${err.message}`;
+      thinkingRow.innerHTML = `
+        <div style="color: #f4212e; padding: 12px 16px; font-size: 14px;">
+          <span>⚠️ ${escapeHtml(msg)}</span>
+        </div>
+      `;
     }
   }
 

@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Environment Variables & Secrets
+.env
+*.env.local
+
+# Databases & Datasets
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache & Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# Hugging Face models & checkouts
+models/
+checkpoints/
+hf_cache/

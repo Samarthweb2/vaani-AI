@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+from pathlib import Path
 import sys
 from vaani.config import get_settings
 from vaani.agent import VaaniAgent
@@ -66,8 +67,13 @@ def main():
         print(f"Hugging Face Mode:     {settings.hf_mode}")
         print(f"Hugging Face Model:    {settings.hf_model_id}")
         print(f"Database Path:         {settings.database_path}")
-        print(f"Fine-Tuning Dataset:   {settings.dataset_path}")
-        print(f"Total Logged Samples:  {total_samples}")
+        print(f"Live Mention Dataset:  {settings.dataset_path} ({total_samples} samples)")
+        large_ds_path = Path("data/train_large.jsonl")
+        if large_ds_path.exists():
+            with open(large_ds_path, "r", encoding="utf-8") as f:
+                large_count = sum(1 for _ in f)
+            size_mb = large_ds_path.stat().st_size / (1024 * 1024)
+            print(f"Base Training Dataset: data/train_large.jsonl ({large_count} samples, {size_mb:.2f} MB)")
         print("=" * 50)
         if history:
             print("\nRecent Processed Mentions:")

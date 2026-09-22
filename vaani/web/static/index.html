@@ -1,262 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vaani AI — Autonomous Social Media AI Agent</title>
-  <meta name="description" content="Vaani AI: Mention-based autonomous social media AI agent powered by fine-tuned Hugging Face models.">
+  <title>Vaani AI (@vaaniai) / X</title>
+  <meta name="description" content="Vaani AI on X: Autonomous Social Media AI Agent powered by fine-tuned Hugging Face models.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <div class="app-container">
-    <!-- Top Header -->
-    <header class="app-header">
-      <div class="header-brand">
-        <div class="brand-avatar">V</div>
-        <div class="brand-info">
-          <div class="brand-title-row">
-            <h1 class="brand-title">Vaani AI</h1>
-            <span class="verified-badge" title="Verified AI Agent">✓</span>
-            <span class="handle-tag">@vaaniai</span>
+  <div class="x-layout">
+    
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="x-left-nav">
+      <div class="x-nav-inner">
+        <!-- Logo -->
+        <a href="/" class="x-logo-link" title="X">
+          <svg class="x-logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+        <!-- Nav Items -->
+        <nav class="x-nav-menu">
+          <a href="#" class="x-nav-item active" data-tab="home">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V20a2 2 0 0 0 2 2h4v-6a3 3 0 0 1 6 0v6h4a2 2 0 0 0 2-2V9.679l1.318.824 1.06-1.696L12 1.696z"/></svg>
+            <span class="nav-text">Home</span>
+          </a>
+          <a href="#" class="x-nav-item" data-tab="explore">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.728 4.596-1.904l4.95 4.95 1.414-1.414-4.95-4.95A6.47 6.47 0 0 0 16.75 10.25c0-3.59-2.91-6.5-6.5-6.5zm-4.5 6.5c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5z"/></svg>
+            <span class="nav-text">Explore</span>
+          </a>
+          <a href="#" class="x-nav-item" data-tab="notifications">
+            <div class="nav-icon-wrap">
+              <svg viewBox="0 0 24 24" class="nav-icon"><path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.696C6.376 6.398 8.934 4 12 4s5.624 2.398 6.019 5.304L18.866 16H5.134z"/></svg>
+              <span class="badge-dot"></span>
+            </div>
+            <span class="nav-text">Notifications</span>
+          </a>
+          <a href="#" class="x-nav-item" data-tab="messages">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M1.998 5.5v13a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-13a2 2 0 0 0-2-2h-16a2 2 0 0 0-2 2zm18 1.414l-8 6-8-6V5.5h16v1.414zM3.998 8.886l6.8 5.1a2 2 0 0 0 2.4 0l6.8-5.1V18.5h-16V8.886z"/></svg>
+            <span class="nav-text">Messages</span>
+          </a>
+          <a href="#" class="x-nav-item" data-tab="bookmarks">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M4 4.5C4 3.12 5.119 2 6.5 2h11C18.881 2 20 3.12 20 4.5v17.266a.75.75 0 0 1-1.196.608L12 17.155l-6.804 5.22A.75.75 0 0 1 4 21.767V4.5zm2.5-.5c-.276 0-.5.224-.5.5v15.228l5.604-4.298a.75.75 0 0 1 .792 0L18 19.728V4.5c0-.276-.224-.5-.5-.5h-11z"/></svg>
+            <span class="nav-text">Bookmarks</span>
+          </a>
+          <a href="#" class="x-nav-item" data-tab="profile">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M17.863 13.445a8.001 8.001 0 0 0-11.726 0A9.97 9.97 0 0 0 2 21.25h2a7.97 7.97 0 0 1 8-8 7.97 7.97 0 0 1 8 8h2a9.97 9.97 0 0 0-4.137-7.805zM12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-8a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+            <span class="nav-text">Profile</span>
+          </a>
+        </nav>
+
+        <!-- Big Post Button -->
+        <button class="x-post-btn" id="nav-post-btn">Post</button>
+
+        <!-- Bottom User Pill -->
+        <div class="x-account-pill">
+          <div class="user-avatar samarth-avatar">S</div>
+          <div class="account-details">
+            <span class="account-name">sam ☕</span>
+            <span class="account-handle">@samarthsharma44</span>
           </div>
-          <p class="brand-subtitle">Autonomous Mention Agent · Hugging Face + LoRA</p>
+          <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Light/Dark Theme">
+            <span class="theme-icon" id="theme-icon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN TIMELINE -->
+    <main class="x-main-timeline">
+      
+      <!-- Top Sticky Bar -->
+      <div class="x-top-bar">
+        <div class="top-bar-left">
+          <button class="back-btn" id="back-to-feed-btn" style="display: none;">
+            <svg viewBox="0 0 24 24" class="icon-sm"><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"/></svg>
+          </button>
+          <div class="top-title-group">
+            <h2 class="top-title" id="page-title">Home</h2>
+            <span class="top-sub" id="page-sub">For you & Following</span>
+          </div>
+        </div>
+        <div class="live-pill" title="Fine-Tuned Hugging Face Model Active">
+          <span class="pulse-dot"></span>
+          <span>Qwen2.5 + LoRA Active</span>
         </div>
       </div>
 
-      <div class="header-status-strip">
-        <div class="status-chip active">
-          <span class="status-dot pulsing"></span>
-          <span class="chip-label">Engine:</span>
-          <span class="chip-val" id="chip-model">Qwen2.5-0.5B</span>
-        </div>
-        <div class="status-chip">
-          <span class="status-dot green"></span>
-          <span class="chip-label">LoRA Adapter:</span>
-          <span class="chip-val" id="chip-lora">checkpoints/vaani-lora</span>
-        </div>
-        <div class="status-chip">
-          <span class="status-dot blue"></span>
-          <span class="chip-label">Dataset:</span>
-          <span class="chip-val" id="chip-dataset">Dolly 15k (14,835 samples)</span>
-        </div>
-      </div>
-
-      <div class="header-nav">
-        <button class="nav-tab active" data-tab="timeline">Live Timeline</button>
-        <button class="nav-tab" data-tab="dataset">Dataset Inspector</button>
-        <button class="nav-tab" data-tab="architecture">Architecture</button>
-      </div>
-    </header>
-
-    <!-- Main Content Layout -->
-    <main class="main-layout">
-      <!-- Left Column: Primary Timeline & Composer -->
-      <section class="timeline-column" id="tab-timeline">
-        <!-- Tweet Composer Card -->
-        <div class="composer-card">
-          <div class="composer-header">
-            <div class="author-selector-wrap">
-              <span class="author-avatar" id="current-author-avatar">J</span>
-              <div class="author-details">
-                <span class="author-label">Posting as:</span>
-                <select id="author-select" class="author-select">
-                  <option value="hackathon_judge">@hackathon_judge</option>
-                  <option value="samarthsharma44">@samarthsharma44</option>
-                  <option value="tech_reviewer">@tech_reviewer</option>
-                  <option value="student_dev">@student_dev</option>
-                </select>
-              </div>
-            </div>
-            <div class="composer-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Tweet</div>
+      <!-- PROFILE HEADER (Clean Twitter banner & avatar like in screenshot) -->
+      <div class="x-profile-header">
+        <div class="profile-banner"></div>
+        <div class="profile-meta-bar">
+          <div class="profile-avatar-large">
+            <div class="vaani-avatar-inner">V</div>
           </div>
-
-          <div class="composer-body">
-            <textarea
-              id="tweet-input"
-              class="tweet-textarea"
-              rows="3"
-              placeholder="Tag @vaaniai with your query... (e.g., @vaaniai what is fine-tuning in AI?)"
-            >@vaaniai </textarea>
-          </div>
-
-          <!-- Quick Suggestion Chips -->
-          <div class="prompt-chips">
-            <span class="chips-title">Quick prompts:</span>
-            <button class="chip-btn" data-prompt="@vaaniai explain what is an API in 2 sentences">API in 2 sentences</button>
-            <button class="chip-btn" data-prompt="@vaaniai why do we use LoRA instead of full fine-tuning?">Why LoRA?</button>
-            <button class="chip-btn" data-prompt="@vaaniai how does Twitter API v2 handle rate limits?">Twitter API Limits</button>
-            <button class="chip-btn" data-prompt="@vaaniai how do neural networks learn through backpropagation?">Neural Networks</button>
-          </div>
-
-          <div class="composer-footer">
-            <div class="char-counter-wrap">
-              <svg class="progress-ring" width="28" height="28">
-                <circle class="progress-ring__circle-bg" stroke="#1f293d" stroke-width="3" fill="transparent" r="11" cx="14" cy="14"/>
-                <circle class="progress-ring__circle" id="char-progress" stroke="#1d9bf0" stroke-width="3" fill="transparent" r="11" cx="14" cy="14"/>
-              </svg>
-              <span class="char-count" id="char-count">8 / 280</span>
-            </div>
-            <button class="tweet-submit-btn" id="submit-tweet-btn">
-              <span class="btn-text">Tweet @vaaniai</span>
-              <span class="btn-spinner" id="btn-spinner"></span>
-            </button>
+          <div class="profile-actions">
+            <button class="btn-following">Following</button>
           </div>
         </div>
-
-        <!-- Timeline Section -->
-        <div class="timeline-stream-header">
-          <h2 class="timeline-title">Live Mention Feed & Thread Timeline</h2>
-          <button class="clear-timeline-btn" id="clear-feed-btn">Clear View</button>
-        </div>
-
-        <div class="timeline-feed" id="timeline-feed">
-          <!-- Dynamic Tweets will be injected here -->
-        </div>
-      </section>
-
-      <!-- Dataset Inspector Tab (Hidden by default) -->
-      <section class="dataset-column" id="tab-dataset" style="display: none;">
-        <div class="dataset-header-card">
-          <div class="dataset-title-group">
-            <h2>Fine-Tuning Dataset Inspector</h2>
-            <p>Every mention processed by Vaani AI is automatically formatted and saved to <code>data/dataset.jsonl</code>.</p>
+        <div class="profile-info-block">
+          <div class="profile-name-row">
+            <h1 class="profile-display-name">Vaani AI</h1>
+            <svg class="verified-badge-svg" viewBox="0 0 22 22" aria-label="Verified account">
+              <path fill="#1d9bf0" d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.136 2.136 5.445-5.446 1.302 1.293-6.747 6.747z"/>
+            </svg>
           </div>
-          <div class="dataset-counters">
-            <div class="d-count-box">
-              <span class="d-num" id="d-total-count">0</span>
-              <span class="d-label">Captured Interactions</span>
-            </div>
-            <div class="d-count-box">
-              <span class="d-num" id="d-base-count">14,835</span>
-              <span class="d-label">Base Dolly 15k Samples</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dataset-records-feed" id="dataset-records">
-          <!-- Dynamic JSONL records -->
-        </div>
-      </section>
-
-      <!-- System Architecture Tab (Hidden by default) -->
-      <section class="architecture-column" id="tab-architecture" style="display: none;">
-        <div class="arch-card">
-          <h2>Vaani AI Architecture Overview</h2>
-          <div class="arch-diagram">
-            <div class="arch-step">
-              <div class="step-num">1</div>
-              <div class="step-content">
-                <h3>Mention Detection</h3>
-                <p>Ingests tag <code>@vaaniai</code> via Twitter API v2 or Web Simulator. Normalizes handles and isolates user intent.</p>
-              </div>
-            </div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-step">
-              <div class="step-num">2</div>
-              <div class="step-content">
-                <h3>SQLite Deduplication</h3>
-                <p>Checks <code>data/vaani.db</code> for processed tweet IDs and cursor pagination to eliminate duplicate replies.</p>
-              </div>
-            </div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-step">
-              <div class="step-num">3</div>
-              <div class="step-content">
-                <h3>Hugging Face + LoRA</h3>
-                <p>Loads <code>Qwen/Qwen2.5-0.5B-Instruct</code> and dynamically merges fine-tuned weights from <code>checkpoints/vaani-lora</code>.</p>
-              </div>
-            </div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-step">
-              <div class="step-num">4</div>
-              <div class="step-content">
-                <h3>Thread Formatter</h3>
-                <p>Enforces 280-char social limit. Slices longer responses into clean numbered threads <code>(1/2)</code>, <code>(2/2)</code>.</p>
-              </div>
-            </div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-step">
-              <div class="step-num">5</div>
-              <div class="step-content">
-                <h3>Continuous Learning</h3>
-                <p>Appends question-answer pairs to <code>data/dataset.jsonl</code> in instruction-tuning format for automated retraining.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Right Sidebar: Live Hackathon Telemetry -->
-      <aside class="sidebar-column">
-        <!-- Live System Telemetry Card -->
-        <div class="telemetry-card">
-          <h3 class="sidebar-heading">System Telemetry</h3>
-          
-          <div class="metric-row">
-            <span class="m-label">Active Model</span>
-            <span class="m-val highlight" id="m-model-id">Qwen2.5-0.5B</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">LoRA Status</span>
-            <span class="m-val status-green">Active & Merged</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">Hardware Device</span>
-            <span class="m-val">CPU (Quantized/Float32)</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">Base Dataset</span>
-            <span class="m-val">Databricks Dolly 15k</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">Base Training Size</span>
-            <span class="m-val" id="m-base-size">14,835 (14.0 MB)</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">Captured Interactions</span>
-            <span class="m-val badge-blue" id="m-live-samples">14</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">State Database</span>
-            <span class="m-val code-font">data/vaani.db</span>
-          </div>
-        </div>
-
-        <!-- Twitter API Status Card -->
-        <div class="telemetry-card twitter-status-card">
-          <h3 class="sidebar-heading">X (Twitter) Auth Status</h3>
-          <div class="metric-row">
-            <span class="m-label">Authenticated As</span>
-            <span class="m-val highlight">@samarthsharma44</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">OAuth 1.0a Handshake</span>
-            <span class="m-val status-green">Verified (200 OK)</span>
-          </div>
-          <div class="metric-row">
-            <span class="m-label">API v2 Gateway</span>
-            <span class="m-val status-yellow">Requires Paid Tier (402)</span>
-          </div>
-          <p class="twitter-note">
-            OAuth authentication is verified. Localhost simulator runs the real Hugging Face model and replicates live Twitter thread behavior.
+          <div class="profile-handle">@vaaniai</div>
+          <p class="profile-bio">
+            Autonomous social media AI agent powered exclusively by Hugging Face models & fine-tuned with LoRA. Mention me to get instant answers!
           </p>
+          <div class="profile-meta-row">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" class="icon-sm"><path d="M7 4V3h2v1h6V3h2v1h1.5C19.89 4 21 5.12 21 6.5v12c0 1.38-1.11 2.5-2.5 2.5h-13C4.12 21 3 19.88 3 18.5v-12C3 5.12 4.12 4 5.5 4H7zm0 2H5.5c-.27 0-.5.22-.5.5v12c0 .28.23.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5H17v1h-2V6H9v1H7V6zm0 5h10v2H7v-2z"/></svg>
+              Joined September 2026
+            </span>
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" class="icon-sm"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Databricks Dolly 15k
+            </span>
+          </div>
+          <div class="profile-counts">
+            <span class="count-item"><strong>14,835</strong> <span class="count-label">Training Pairs</span></span>
+            <span class="count-item"><strong id="live-followers-count">1,842</strong> <span class="count-label">Followers</span></span>
+          </div>
         </div>
 
-        <!-- Presentation Tips for Judges -->
-        <div class="telemetry-card judges-card">
-          <h3 class="sidebar-heading">Hackathon Demo Highlights</h3>
-          <ul class="judges-list">
-            <li><strong>Zero Ollama:</strong> Runs pure Hugging Face transformers.</li>
-            <li><strong>LoRA Fine-Tuned:</strong> Custom trained weights loaded from <code>checkpoints/vaani-lora</code>.</li>
-            <li><strong>Real Human Dataset:</strong> Databricks Dolly 15k (not dummy toy data).</li>
-            <li><strong>Thread Chunker:</strong> Automatically splits responses exceeding 280 chars into connected tweet threads.</li>
-          </ul>
+        <!-- Profile Tabs -->
+        <div class="profile-nav-tabs">
+          <button class="p-tab active">Tweets</button>
+          <button class="p-tab">Replies</button>
+          <button class="p-tab">Highlights</button>
+          <button class="p-tab">Media</button>
         </div>
-      </aside>
+      </div>
+
+      <!-- TWEET COMPOSER (Standard Twitter inline tweet box) -->
+      <div class="x-composer-box">
+        <div class="composer-avatar-col">
+          <div class="user-avatar samarth-avatar">S</div>
+        </div>
+        <div class="composer-input-col">
+          <textarea
+            id="tweet-input"
+            class="x-textarea"
+            rows="2"
+            placeholder="Tweet your query to @vaaniai..."
+          >@vaaniai </textarea>
+
+          <!-- Composer Toolbar -->
+          <div class="composer-toolbar">
+            <div class="composer-icons">
+              <button class="c-icon-btn" title="Media">
+                <svg viewBox="0 0 24 24" class="c-svg"><path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 8.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/></svg>
+              </button>
+              <button class="c-icon-btn" title="GIF">
+                <svg viewBox="0 0 24 24" class="c-svg"><path d="M3 5.5C3 4.12 4.12 3 5.5 3h13C19.88 3 21 4.12 21 5.5v13c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 21 3 19.88 3 18.5v-13zM5.5 5c-.28 0-.5.22-.5.5v13c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-13c0-.28-.22-.5-.5-.5h-13zM10 9H7v6h3v-2H8.5v-1H10V9zm3 0h-1.5v6H13V9zm4.5 0h-3v6h1.5v-2H16v-1h-1.5v-1.5H17.5V9z"/></svg>
+              </button>
+              <button class="c-icon-btn" title="Emoji">
+                <svg viewBox="0 0 24 24" class="c-svg"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-4 8.5c2.47 0 4.57-1.56 5.4-3.75H6.6c.83 2.19 2.93 3.75 5.4 3.75zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+              </button>
+            </div>
+            
+            <div class="composer-submit-group">
+              <div class="ring-wrap">
+                <svg class="ring-svg" width="24" height="24">
+                  <circle class="ring-bg" stroke="currentColor" stroke-width="2.5" fill="transparent" r="9" cx="12" cy="12"/>
+                  <circle class="ring-fill" id="char-ring" stroke="#1d9bf0" stroke-width="2.5" fill="transparent" r="9" cx="12" cy="12"/>
+                </svg>
+              </div>
+              <button class="post-submit-btn" id="post-submit-btn">Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE TWEET FEED -->
+      <div class="x-tweet-feed" id="tweet-feed">
+        <!-- Tweets will appear here as authentic threads -->
+      </div>
+
     </main>
+
+    <!-- RIGHT SIDEBAR WIDGETS -->
+    <aside class="x-right-sidebar">
+      
+      <!-- Search Box -->
+      <div class="x-search-box">
+        <svg viewBox="0 0 24 24" class="search-icon"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.728 4.596-1.904l4.95 4.95 1.414-1.414-4.95-4.95A6.47 6.47 0 0 0 16.75 10.25c0-3.59-2.91-6.5-6.5-6.5zm-4.5 6.5c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5z"/></svg>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+
+      <!-- Who to Follow Widget -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">Who to follow</h3>
+        
+        <div class="follow-user-row">
+          <div class="user-avatar vaani-mini-avatar">V</div>
+          <div class="follow-meta">
+            <div class="follow-name-row">
+              <span class="follow-name">Vaani AI</span>
+              <svg class="mini-check" viewBox="0 0 22 22"><path fill="#1d9bf0" d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.136 2.136 5.445-5.446 1.302 1.293-6.747 6.747z"/></svg>
+            </div>
+            <span class="follow-handle">@vaaniai</span>
+          </div>
+          <button class="btn-follow">Following</button>
+        </div>
+
+        <div class="follow-user-row">
+          <div class="user-avatar samarth-avatar">S</div>
+          <div class="follow-meta">
+            <span class="follow-name">sam ☕</span>
+            <span class="follow-handle">@samarthsharma44</span>
+          </div>
+          <button class="btn-follow">Follow</button>
+        </div>
+      </div>
+
+      <!-- What's Happening (Trends) Widget -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">What's happening</h3>
+        
+        <div class="trend-item">
+          <span class="trend-category">Artificial Intelligence · Trending</span>
+          <span class="trend-topic">#HuggingFace</span>
+          <span class="trend-count">48.5K posts</span>
+        </div>
+
+        <div class="trend-item">
+          <span class="trend-category">Machine Learning · Trending</span>
+          <span class="trend-topic">#LoRA FineTuning</span>
+          <span class="trend-count">24.1K posts</span>
+        </div>
+
+        <div class="trend-item">
+          <span class="trend-category">Technology · Trending</span>
+          <span class="trend-topic">Databricks Dolly 15k</span>
+          <span class="trend-count">14,835 samples</span>
+        </div>
+
+        <div class="trend-item">
+          <span class="trend-category">Hackathon · Trending</span>
+          <span class="trend-topic">@vaaniai Agent</span>
+          <span class="trend-count">9,412 posts</span>
+        </div>
+      </div>
+
+      <!-- Footer Links -->
+      <footer class="x-footer">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Accessibility</a>
+        <span>© 2026 X Corp. / Vaani AI</span>
+      </footer>
+
+    </aside>
+
   </div>
 
   <script src="/static/app.js"></script>

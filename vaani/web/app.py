@@ -90,11 +90,12 @@ async def handle_web_mention(req: MentionRequest):
 
     start_time = time.time()
 
-    # 1. Run local LLM inference + tweet formatting + dataset logging
-    full_response, chunks = agent.solve_mention_query(
+    # 1. Run local LLM inference + autonomous tool calling + tweet formatting + dataset logging
+    full_response, chunks, used_tools = agent.solve_mention_query(
         raw_text=req.text,
         author=author,
-        source="web_simulator"
+        source="web_simulator",
+        return_tools=True
     )
 
     elapsed = round(time.time() - start_time, 2)
@@ -119,6 +120,7 @@ async def handle_web_mention(req: MentionRequest):
         "full_response": full_response,
         "chunks": chunks,
         "chunk_count": len(chunks),
+        "used_tools": used_tools,
         "latency_sec": elapsed,
         "live_samples_total": agent.dataset_collector.count_samples()
     }

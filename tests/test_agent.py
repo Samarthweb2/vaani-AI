@@ -57,3 +57,57 @@ def test_agent_solve_mention_query(tmp_path):
     agent.handle_twitter_mention(mention)
     # Should not re-add to dataset because it was skipped
     assert dataset_collector.count_samples() == 2
+
+
+def test_agent_tool_calling(tmp_path):
+    settings = Settings(
+        bot_handle="vaaniai",
+        database_path=str(tmp_path / "test_tools.db"),
+        dataset_path=str(tmp_path / "dataset_tools.jsonl"),
+        hf_mode="mock"
+    )
+
+    storage = MentionStorage(settings.database_path)
+    dataset_collector = DatasetCollector(settings.dataset_path)
+    llm = MockLLMProvider()
+
+    from vaani.twitter.client import TwitterClient
+    agent = VaaniAgent(
+        settings=settings,
+        llm_provider=llm,
+        storage=storage,
+        dataset_collector=dataset_collector,
+        twitter_client=TwitterClient()
+    )
+
+    # 1. Calculator Tool Call
+    resp, chunks, tools = agent.solve_mention_query(
+        raw_text="@vaaniai calculate 125 * 84",
+        author="mathematician",
+        return_tools=True
+    )
+    assert len(tools) == 1
+    assert tools[0]["name"] == "calculator"
+    assert "10500" in tools[0]["output"]
+    assert "10500" in resp
+
+    # 2. Python Runner Tool Call
+    resp_py, chunks_py, tools_py = agent.solve_mention_query(
+        raw_text="@vaaniai run python: print(2**10)",
+        author="coder",
+        return_tools=True
+    )
+    assert len(tools_py) == 1
+    assert tools_py[0]["name"] == "python_runner"
+    assert "1024" in tools_py[0]["output"]
+
+    # 3. Web Search Tool Call
+    resp_search, chunks_search, tools_search = agent.solve_mention_query(
+        raw_text="@vaaniai who is Guido van Rossum?",
+        author="researcher",
+        return_tools=True
+    )
+    assert len(tools_search) == 1
+    assert tools_search[0]["name"] == "web_search"
+    assert "Python" in tools_search[0]["output"]
+

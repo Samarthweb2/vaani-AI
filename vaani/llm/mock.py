@@ -14,8 +14,12 @@ class MockLLMProvider(BaseLLMProvider):
         self,
         query: str,
         author: str = "user",
-        context: Optional[str] = None
+        context: Optional[str] = None,
+        tool_observation: Optional[str] = None
     ) -> str:
+        if tool_observation:
+            return f"Result: {tool_observation}. Solved by Vaani AI!"
+
         q_lower = query.lower()
 
         if "hello" in q_lower or "hi" in q_lower:

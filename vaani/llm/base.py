@@ -12,7 +12,8 @@ class BaseLLMProvider(ABC):
         self,
         query: str,
         author: str = "user",
-        context: Optional[str] = None
+        context: Optional[str] = None,
+        tool_observation: Optional[str] = None
     ) -> str:
         """
         Generate a solution/response to the user's query.
@@ -21,6 +22,7 @@ class BaseLLMProvider(ABC):
             query: The extracted user question/prompt.
             author: The username of the person asking.
             context: Any parent tweet or thread context.
+            tool_observation: Any real-time tool observation/output data.
 
         Returns:
             The generated response string.

@@ -40,10 +40,11 @@ class HuggingFaceInferenceProvider(BaseLLMProvider):
         self,
         query: str,
         author: str = "user",
-        context: Optional[str] = None
+        context: Optional[str] = None,
+        tool_observation: Optional[str] = None
     ) -> str:
         client = self._get_client()
-        messages = build_chat_messages(query, author, context)
+        messages = build_chat_messages(query, author, context, tool_observation)
 
         try:
             # Try chat completion first (for instruct/chat models)

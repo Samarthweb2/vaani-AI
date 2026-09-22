@@ -78,12 +78,13 @@ class HuggingFaceLocalProvider(BaseLLMProvider):
         self,
         query: str,
         author: str = "user",
-        context: Optional[str] = None
+        context: Optional[str] = None,
+        tool_observation: Optional[str] = None
     ) -> str:
         self._load_model()
         import torch
 
-        messages = build_chat_messages(query, author, context)
+        messages = build_chat_messages(query, author, context, tool_observation)
 
         # Apply chat template if supported
         if hasattr(self._tokenizer, "apply_chat_template") and self._tokenizer.chat_template:
@@ -93,7 +94,7 @@ class HuggingFaceLocalProvider(BaseLLMProvider):
                 add_generation_prompt=True
             )
         else:
-            input_text = build_raw_prompt(query, author, context)
+            input_text = build_raw_prompt(query, author, context, tool_observation)
 
         inputs = self._tokenizer(input_text, return_tensors="pt").to(self.device)
 

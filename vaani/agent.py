@@ -10,6 +10,8 @@ from vaani.twitter.formatter import clean_query, format_tweet_chunks
 from vaani.twitter.client import TwitterClient
 from vaani.twitter.poller import TwitterPoller
 
+from vaani.tools import ToolRegistry, default_registry
+
 logger = logging.getLogger(__name__)
 
 
@@ -17,7 +19,8 @@ class VaaniAgent:
     """
     Vaani AI Agent:
     - Ingests mentions tagging @vaaniai
-    - Solves the query using Hugging Face LLM
+    - Evaluates and calls autonomous tools (calculator, web search, python runner)
+    - Solves the query using Hugging Face LLM augmented with tool observations
     - Formats the response for Twitter/Social media
     - Records the interaction into fine-tuning dataset
     - Stores state in SQLite to prevent duplicate processing
@@ -30,11 +33,14 @@ class VaaniAgent:
         storage: Optional[MentionStorage] = None,
         dataset_collector: Optional[DatasetCollector] = None,
         twitter_client: Optional[TwitterClient] = None,
+        tool_registry: Optional[ToolRegistry] = None,
     ):
         self.settings = settings or get_settings()
         self.storage = storage or MentionStorage(self.settings.database_path)
         self.dataset_collector = dataset_collector or DatasetCollector(self.settings.dataset_path)
         self.llm = llm_provider or create_llm_provider(self.settings)
+        self.tool_registry = tool_registry or default_registry
+        self.last_used_tools: List[Dict[str, Any]] = []
 
         self.twitter_client = twitter_client or TwitterClient(
             api_key=self.settings.twitter_api_key,
@@ -49,17 +55,20 @@ class VaaniAgent:
         raw_text: str,
         author: str = "user",
         context: Optional[str] = None,
-        source: str = "social_mention"
-    ) -> Tuple[str, List[str]]:
+        source: str = "social_mention",
+        return_tools: bool = False
+    ) -> Any:
         """
         Process a raw mention string:
         1. Clean and strip '@vaaniai' from the input text
-        2. Invoke Hugging Face LLM
-        3. Format response into tweet-compatible chunks (<= 280 chars)
-        4. Log sample to training dataset (JSONL) for future fine-tuning
+        2. Check and invoke relevant tools (Calculator, Web Search, Python Runner)
+        3. Invoke Hugging Face LLM (augmented with tool observations)
+        4. Format response into tweet-compatible chunks (<= 280 chars)
+        5. Log sample to training dataset (JSONL) for future fine-tuning
 
         Returns:
             Tuple of (full_response_text, list_of_tweet_chunks)
+            or (full_response_text, list_of_tweet_chunks, used_tools) if return_tools=True
         """
         cleaned = clean_query(raw_text, bot_handle=self.settings.bot_handle)
         if not cleaned:
@@ -67,17 +76,35 @@ class VaaniAgent:
 
         logger.info("Solving query from @%s: '%s'", author, cleaned)
 
-        # 2. Invoke Hugging Face model
+        # 2. Autonomous Tool Calling
+        used_tools = []
+        tool_observation = None
+        tool_result = self.tool_registry.execute_matching_tool(cleaned)
+        if tool_result:
+            logger.info("Tool %s executed: %s", tool_result.tool_name, tool_result.output_data)
+            tool_dict = {
+                "name": tool_result.tool_name,
+                "input": tool_result.input_data,
+                "output": tool_result.output_data,
+                "success": tool_result.success
+            }
+            used_tools.append(tool_dict)
+            tool_observation = tool_result.output_data
+
+        self.last_used_tools = used_tools
+
+        # 3. Invoke Hugging Face model with tool observation
         full_response = self.llm.generate_response(
             query=cleaned,
             author=author,
-            context=context
+            context=context,
+            tool_observation=tool_observation
         )
 
-        # 3. Format response chunks
+        # 4. Format response chunks
         chunks = format_tweet_chunks(full_response)
 
-        # 4. Save to fine-tuning dataset
+        # 5. Save to fine-tuning dataset
         try:
             self.dataset_collector.log_interaction(
                 query=cleaned,
@@ -88,6 +115,9 @@ class VaaniAgent:
             logger.debug("Logged interaction to dataset. Total samples: %d", self.dataset_collector.count_samples())
         except Exception as e:
             logger.warning("Failed to log interaction to dataset: %s", e)
+
+        if return_tools:
+            return full_response, chunks, used_tools
 
         return full_response, chunks
 

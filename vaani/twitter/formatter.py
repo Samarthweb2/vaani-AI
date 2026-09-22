@@ -13,9 +13,12 @@ def clean_query(text: str, bot_handle: str = "vaaniai") -> str:
         '@vaaniai what is machine learning?' -> 'what is machine learning?'
         '@user @vaaniai explain recursion' -> 'explain recursion'
     """
-    # Remove bot handle mention case-insensitively (supports both @vaaniai and account username)
-    handle_pattern = re.compile(rf"@(vaaniai|{re.escape(bot_handle)})\b", re.IGNORECASE)
+    # Remove bot handle mention case-insensitively (supports @vaaniai, @vaani, @vaani_ai, etc.)
+    handle_pattern = re.compile(rf"@(vaaniai|vaani_ai|vaani|{re.escape(bot_handle)})\b", re.IGNORECASE)
     cleaned = handle_pattern.sub("", text)
+
+    # If user typed '@vaani ai ...', remove leading 'ai' word
+    cleaned = re.sub(r"^\s*ai\b", "", cleaned, flags=re.IGNORECASE)
 
     # Remove any other leading mentions like @someone
     cleaned = re.sub(r"^(\s*@\w+\s*)+", "", cleaned)

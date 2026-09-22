@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const modalTweetPreview = document.getElementById("modal-tweet-preview");
       if (modalTweetPreview) modalTweetPreview.style.display = "none";
       modalSubmitBtn.textContent = "Post";
-      modalReplyInput.placeholder = "What is happening?! Ask @vaaniai...";
-      modalReplyInput.value = "@vaaniai ";
+      modalReplyInput.placeholder = "What is happening?! (mention @vaaniai to invoke AI)";
+      modalReplyInput.value = "";
       updateModalCharCount();
       activeReplyParentThread = null; // Top-level new tweet
       replyModal.style.display = "flex";
@@ -159,14 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // ============================================================
   // Post Tweet & Render Thread (Main Feed Composer)
   // ============================================================
+  function isMentioningVaani(text) {
+    if (!text) return false;
+    return /@vaani(?:ai|_ai|\s+ai)?\b/i.test(text);
+  }
+
   async function handlePostTweet() {
-    let rawText = tweetInput.value.trim();
+    const rawText = tweetInput.value.trim();
     if (!rawText) return;
 
-    // Ensure @vaaniai handle is present for clean mention routing
-    if (!rawText.toLowerCase().includes("@vaaniai")) {
-      rawText = `@vaaniai ${rawText}`;
-    }
+    const invokeVaani = isMentioningVaani(rawText);
 
     postSubmitBtn.disabled = true;
     postSubmitBtn.textContent = "Posting...";
@@ -181,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userRow.innerHTML = `
       <div class="tweet-avatar-col">
         <div class="avatar-img avatar-user">S</div>
-        <div class="thread-connector-line"></div>
+        ${invokeVaani ? '<div class="thread-connector-line"></div>' : ''}
       </div>
       <div class="tweet-main-col">
         <div class="tweet-header-row">
@@ -200,7 +202,20 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // 2. Thinking indicator
+    threadBlock.appendChild(userRow);
+
+    // If NOT mentioning Vaani, just post as a normal tweet immediately!
+    if (!invokeVaani) {
+      tweetFeed.prepend(threadBlock);
+      tweetInput.value = "";
+      updateCharRing();
+      postSubmitBtn.disabled = true;
+      postSubmitBtn.textContent = "Post";
+      tweetInput.focus();
+      return;
+    }
+
+    // 2. Mentioning Vaani AI -> Show thinking indicator & call LLM
     const thinkingRow = document.createElement("div");
     thinkingRow.className = "thinking-row";
     thinkingRow.id = "active-thinking";
@@ -209,9 +224,12 @@ document.addEventListener("DOMContentLoaded", () => {
       <span>Vaani AI is calling tools & generating reply...</span>
     `;
 
-    threadBlock.appendChild(userRow);
     threadBlock.appendChild(thinkingRow);
     tweetFeed.prepend(threadBlock);
+
+    // Clear input right away
+    tweetInput.value = "";
+    updateCharRing();
 
     try {
       const response = await fetch("/api/mention", {
@@ -264,10 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         threadBlock.appendChild(botRow);
       });
-
-      // Clear input
-      tweetInput.value = "@vaaniai ";
-      updateCharRing();
 
     } catch (err) {
       const msg = err.message.includes("fetch")
@@ -393,9 +407,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const modalTweetPreview = document.getElementById("modal-tweet-preview");
       if (modalTweetPreview) modalTweetPreview.style.display = "flex";
-      modalSubmitBtn.textContent = "Reply";
-      modalReplyInput.placeholder = "Post your reply (tag @vaaniai)...";
-      modalReplyInput.value = "@vaaniai ";
+      modalReplyInput.placeholder = `Reply to ${authorHandle} (mention @vaaniai to invoke AI)...`;
+      modalReplyInput.value = "";
       updateModalCharCount();
 
       activeReplyParentThread = parentThread;
@@ -436,12 +449,10 @@ document.addEventListener("DOMContentLoaded", () => {
   modalSubmitBtn.addEventListener("click", handleModalReplySubmit);
 
   async function handleModalReplySubmit() {
-    let replyText = modalReplyInput.value.trim();
+    const replyText = modalReplyInput.value.trim();
     if (!replyText) return;
 
-    if (!replyText.toLowerCase().includes("@vaaniai")) {
-      replyText = `@vaaniai ${replyText}`;
-    }
+    const invokeVaani = isMentioningVaani(replyText);
 
     modalSubmitBtn.disabled = true;
     modalSubmitBtn.textContent = "Posting...";
@@ -450,6 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
     replyModal.style.display = "none";
     modalSubmitBtn.disabled = false;
     modalSubmitBtn.textContent = "Reply";
+    modalReplyInput.value = "";
 
     // Append reply under active thread or create new thread
     let targetThread = activeReplyParentThread;
@@ -465,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userReplyRow.innerHTML = `
       <div class="tweet-avatar-col">
         <div class="avatar-img avatar-user">S</div>
-        <div class="thread-connector-line"></div>
+        ${invokeVaani ? '<div class="thread-connector-line"></div>' : ''}
       </div>
       <div class="tweet-main-col">
         <div class="tweet-header-row">
@@ -484,7 +496,14 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // 2. Thinking row
+    targetThread.appendChild(userReplyRow);
+
+    // If NOT mentioning Vaani, just append reply comment and finish
+    if (!invokeVaani) {
+      return;
+    }
+
+    // 2. Mentioning Vaani AI -> Show thinking row
     const thinkingRow = document.createElement("div");
     thinkingRow.className = "thinking-row";
     thinkingRow.innerHTML = `
@@ -492,7 +511,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <span>Vaani AI is replying with Hugging Face + LoRA...</span>
     `;
 
-    targetThread.appendChild(userReplyRow);
     targetThread.appendChild(thinkingRow);
 
     try {

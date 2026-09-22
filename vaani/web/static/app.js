@@ -82,9 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Enter to submit (Ctrl+Enter or Meta+Enter)
+  // Enter to submit (Enter posts immediately, Shift+Enter creates newline)
   tweetInput.addEventListener("keydown", (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    if (tweetAcMenu && tweetAcMenu.style.display !== "none") return;
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handlePostTweet();
     }
@@ -117,52 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
-  // ============================================================
-  // Seed Timeline with authentic demo tweet thread
-  // ============================================================
-  seedInitialTimeline();
-
-  function seedInitialTimeline() {
-    // 1. Tool Calling Demo Thread
-    appendTweetThread({
-      userAuthor: "Tech Enthusiast",
-      userHandle: "@tech_enthusiast",
-      userInitial: "T",
-      userText: "@vaaniai what is 125 * 84, and who created Python?",
-      timeAgo: "4m",
-      used_tools: [
-        {
-          name: "calculator",
-          input: "125 * 84",
-          output: "125 * 84 = 10500",
-          success: true
-        }
-      ],
-      botChunks: [
-        "125 * 84 = 10,500! And Python was created by Guido van Rossum and first released in 1991. Tag me with calculations, questions, or code anytime!"
-      ],
-      replyCount: 2,
-      retweetCount: 7,
-      likeCount: 24
-    });
-
-    // 2. Architecture & Fine-Tuning Thread
-    appendTweetThread({
-      userAuthor: "hackathon_judge",
-      userHandle: "@hackathon_judge",
-      userInitial: "J",
-      userText: "@vaaniai what makes your architecture different from generic AI bots?",
-      timeAgo: "18m",
-      used_tools: [],
-      botChunks: [
-        "Vaani AI runs pure Hugging Face open-weights models (Qwen2.5) with local PEFT LoRA adapters instead of external APIs. It tracks every mention in SQLite to eliminate duplicate replies and chunk-formats answers strictly to 280 characters.",
-        "Crucially, it continuously records every solved query into an Alpaca-format instruction dataset (data/dataset.jsonl), making it self-improving through automated retraining! (2/2)"
-      ],
-      replyCount: 5,
-      retweetCount: 19,
-      likeCount: 58
-    });
-  }
+  // Clean timeline starts empty (no sample posts)
 
   // ============================================================
   // Post Tweet & Render Thread (Main Feed Composer)
@@ -448,8 +404,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Enter to submit reply (Enter posts immediately, Shift+Enter creates newline)
   modalReplyInput.addEventListener("keydown", (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    if (modalAcMenu && modalAcMenu.style.display !== "none") return;
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleModalReplySubmit();
     }
